@@ -1,0 +1,33 @@
+{
+  "name": "sakuraproject",
+  "version": "1.0.0",
+  "description": "Bot Discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^5.4.0",
+    "canvas": "^2.5.0",
+    "cheerio": "^1.0.0-rc.3",
+    "discord.js": "^11.5.1",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-binaries": "^4.0.0",
+    "fs": "0.0.1-security",
+    "google": "^2.1.0",
+    "moment": "^2.24.0",
+    "node-gyp": "^5.0.2",
+    "nodejs": "0.0.0",
+    "opusscript": "0.0.6",
+    "querystring": "^0.2.0",
+    "request": "^2.88.0",
+    "util": "^0.12.1",
+    "yt-search": "^0.4.1",
+    "ytdl-core": "^0.29.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
