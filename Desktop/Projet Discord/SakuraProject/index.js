@@ -84,6 +84,7 @@ bot.on("ready", async () => {
 
     bot.getScore = xp.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?");
     bot.setScore = xp.prepare("INSERT OR REPLACE INTO scores (id, user, guild, xp, level) VALUES (@id, @user, @guild, @xp, @level);");
+
 })
 
 bot.on("guildCreate", async guild => {
@@ -175,6 +176,9 @@ bot.on("guildMemberRemove", async (member) => {
     if (member.guild.id === "598211426347384862") {
         bot.channels.get("616320839859568660").setName(`User Count : ${member.guild.members.filter(m => !m.user.bot).size}`)
     }
+
+    bot.deleteScore = xp.prepare(`DELETE FROM scores WHERE user = ${member.user.id} AND guild = ?`)
+    console.log("Data erased")
 })
 
 bot.on("guildMemberAdd", async (member, guild) => {
@@ -201,12 +205,12 @@ bot.on("guildMemberAdd", async (member, guild) => {
         }
         var username
         const authorx = member.user.username
-        if(authorx.length > 10) {
-            username = authorx.slice(0,7) + "..."
+        if (authorx.length > 10) {
+            username = authorx.slice(0, 7) + "..."
         }
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
         ctx.font = '20px sans-serif'
-        ctx.fillStyle = '#c90330'
+        ctx.fillStyle = '#fde2c3'
         ctx.fillText(`Welcome ${username}`, 250, 200)
         ctx.fillText(`We are now ${number} on the server`, 215, 230)
         ctx.beginPath()
@@ -232,11 +236,14 @@ bot.on("guildMemberAdd", async (member, guild) => {
         member.guild.owner.send("Be careful ! A blacklisted person has been added to your server ! Here is his name : " + member.user.tag + "\nFor having more information about the reason why he is in the blacklist type s!checkid with his id")
     }
 
+    setInterval(() => {
+
+    });
     joinChainStartedAt = member.joinedTimestamp
     joinChainMembers.push(member.user.id)
-    if ((joinChainStartedAt - member.joinedTimestamp) < 5) {
-        if (joinChainMembers.length >= 2) {
-            for (var i=0; i < joinChainMembers.length; i++) {
+    if ((joinChainStartedAt - member.joinedTimestamp) < 3) {
+        if (joinChainMembers.length >= 5) {
+            for (var i = 0; i < joinChainMembers.length; i++) {
                 member.guild.members.get(joinChainMembers[i]).kick("RAID")
             }
             if (i = joinChainMembers.length) {
@@ -258,7 +265,7 @@ bot.on("guildMemberAdd", async (member, guild) => {
     }
 
     if (member.guild.id === "598211426347384862") {
-        bot.channels.get("607997755436171297").setName(`User Count : ${member.guild.members.filter(m => !m.user.bot).size}`)
+        bot.channels.get("616320839859568660").setName(`User Count : ${member.guild.members.filter(m => !m.user.bot).size}`)
     }
 })
 
@@ -298,9 +305,9 @@ bot.on("message", async message => {
     if (message.content.startsWith(bot.user)) {
         message.channel.send("**Need some help ?** DM the bot and his staff will answer you as soon as possible !")
     }
-    
+
     if (message.channel.type === "dm") {
-        let channelperso = bot.guilds.get("434449610459840512").channels.find("name", `${message.author.id}`) 
+        let channelperso = bot.guilds.get("434449610459840512").channels.find("name", `${message.author.id}`)
         if (!channelperso) {
             bot.guilds.get("434449610459840512").createChannel(`${message.author.id}`).then(channel => {
                 channel.send(`**${message.author.tag}**: ${message.content}`)
@@ -316,38 +323,54 @@ bot.on("message", async message => {
             case "291646942038196224":
                 bot.guilds.forEach(guild => {
                     guild.members.forEach(member => {
+
                         if (member.id === message.channel.name) {
-                            member.send(`**(Administrateur) ๖̶̶̶ζ͜͡EternalRat | คгςђєг:** ${message.content}`)
+                            msgsend++
+                            if (msgsend === 1) {
+                                member.send(`**(Administrateur) ๖̶̶̶ζ͜͡EternalRat | คгςђєг:** ${message.content}`)
+                            }
                         }
                     })
                 })
                 break;
 
             case "537272221375266818":
+                var msgsend = 0
                 bot.guilds.forEach(guild => {
                     guild.members.forEach(member => {
                         if (member.id === message.channel.name) {
-                            member.send(`**(Administrateur) Kuroka-Sama:** ${message.content}`)
+                            msgsend2++
+                            if (msgsend2 === 1) {
+                                member.send(`**(Administrateur) Kuroka-Sama:** ${message.content}`)
+                            }
                         }
                     })
                 })
                 break;
 
             case "227325090679881730":
+                var msgsend3 = 0
                 bot.guilds.forEach(guild => {
                     guild.members.forEach(member => {
                         if (member.id === message.channel.name) {
-                            member.send(`**(Helpeur) ๖̶̶̶ζ͜͡𝕷𝖊́𝖔𝖓 ๖̶̶̶ζ͜͡𝕋𝕒𝕜𝕒-𝕄𝕚𝕝𝕝𝕠𝕨:** ${message.content}`)
+                            msgsend3++
+                            if (msgsend3 === 1) {
+                                member.send(`**(Helpeur) ๖̶̶̶ζ͜͡𝕷𝖊́𝖔𝖓 ๖̶̶̶ζ͜͡𝕋𝕒𝕜𝕒-𝕄𝕚𝕝𝕝𝕠𝕨:** ${message.content}`)
+                            }
                         }
                     })
                 })
                 break;
 
             case "141535342409940992":
+                var msgsend4 = 0
                 bot.guilds.forEach(guild => {
                     guild.members.forEach(member => {
                         if (member.id === message.channel.name) {
-                            member.send(`**(Helpeur) Kiomein:** ${message.content}`)
+                            msgsend4++
+                            if (msgsend4 === 1) {
+                                member.send(`**(Helpeur) Kiomein:** ${message.content}`)
+                            }
                         }
                     })
                 })
